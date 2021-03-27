@@ -51,12 +51,16 @@ window.onload = () => {
             const idName = closest.id;
             const id = idName.replace('square-', '');
             if (closest.classList.contains('active')) {
+				var sound = new Audio('https://github.com/rosenishere/personal-stuff/raw/main/count1s.wav')
+				sound.play();
                 closest.classList.remove('active');
                 clicked = Number(id);
                 removeItemOnce(Number(id));
                 createActiveSquares();
                 hits += 1;
             } else {
+				var sound = new Audio('https://github.com/rosenishere/personal-stuff/raw/main/combobreak.wav')
+				sound.play();
                 closest.classList.add('miss');
                 misses += 1;
             }
