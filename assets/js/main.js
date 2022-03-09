@@ -84,9 +84,11 @@ window.onload = () => {
                     alert("Game over!");
                     resetHitMiss();
                     createActiveSquares();
+                } else {
+                    playComboBreak();
+                    closest.classList.add('miss');
                 }
-		        playComboBreak();
-                closest.classList.add('miss');
+		        
             }
         }
         updateScores();
