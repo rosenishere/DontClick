@@ -12,11 +12,11 @@ window.onload = () => {
     var accuracy = 0;
     const playClick = () => {
     	osuClick.currentTime = 0;
-	osuClick.play();
+	    osuClick.play();
     }
     const playComboBreak = () => {
     	osuComboBreak.currentTime = 0;
-	osuComboBreak.play();
+	    osuComboBreak.play();
     }
     const getRandomNumber = () => {
         return Math.floor(Math.random() * 16) + 1;
@@ -40,7 +40,11 @@ window.onload = () => {
             }
         }
     }
-
+    const setAllInactive = () => {
+        for (var i = 0; i < activeSquares.length + 1; i++) {
+            document.getElementById(`square-${number}`).classList.remove("active");
+        }
+    }
     const setClosest = (event) => {
         closest = document.elementFromPoint(event.pageX, event.pageY);
     }
@@ -50,6 +54,11 @@ window.onload = () => {
         document.getElementById('missScore').innerHTML = misses;
         //accuracy = hits * 100 / misses;
         //document.getElementById('accuracy').innerHTML = accuracy;
+    }
+    const resetHitMiss = () => {
+        hits = 0;
+        misses = 0;
+        updateScores();
     }
 
     const handleClick = () => {
@@ -61,16 +70,23 @@ window.onload = () => {
             const idName = closest.id;
             const id = idName.replace('square-', '');
             if (closest.classList.contains('active')) {
-		playClick();
+                hits += 1;
+		        playClick();
                 closest.classList.remove('active');
                 clicked = Number(id);
                 removeItemOnce(Number(id));
                 createActiveSquares();
-                hits += 1;
             } else {
-		playComboBreak();
-                closest.classList.add('miss');
                 misses += 1;
+                if(misses >= 10)
+                {
+                    setAllInactive();
+                    alert("Game over!");
+                    resetHitMiss();
+                    createActiveSquares();
+                }
+		        playComboBreak();
+                closest.classList.add('miss');
             }
         }
         updateScores();
