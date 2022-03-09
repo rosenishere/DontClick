@@ -1,13 +1,23 @@
 window.onload = () => {
     const gameField = document.querySelector('#gameField');
-
+	
+    var osuClick = new Audio('https://github.com/rosenishere/personal-stuff/raw/main/count1s.wav')
+    var osuComboBreak = new Audio('https://github.com/rosenishere/personal-stuff/raw/main/combobreak.wav')
+    
     var activeSquares = [];
     var clicked;
     var closest;
     var misses = 0;
     var hits = 0;
     var accuracy = 0;
-
+    const playClick = () => {
+    	osuClick.currentTime = 0;
+	osuClick.play();
+    }
+    const playComboBreak = () => {
+    	osuComboBreak.currentTime = 0;
+	osuComboBreak.play();
+    }
     const getRandomNumber = () => {
         return Math.floor(Math.random() * 16) + 1;
     }
@@ -51,16 +61,14 @@ window.onload = () => {
             const idName = closest.id;
             const id = idName.replace('square-', '');
             if (closest.classList.contains('active')) {
-				var sound = new Audio('https://github.com/rosenishere/personal-stuff/raw/main/count1s.wav')
-				sound.play();
+		playClick();
                 closest.classList.remove('active');
                 clicked = Number(id);
                 removeItemOnce(Number(id));
                 createActiveSquares();
                 hits += 1;
             } else {
-				var sound = new Audio('https://github.com/rosenishere/personal-stuff/raw/main/combobreak.wav')
-				sound.play();
+		playComboBreak();
                 closest.classList.add('miss');
                 misses += 1;
             }
