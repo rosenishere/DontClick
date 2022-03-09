@@ -80,7 +80,7 @@ window.onload = () => {
                 createActiveSquares();
             } else {
                 misses += 1;
-                if(misses >= 11)
+                if(misses > 10)
                 {
                     setAllInactive();
                     resetHitMiss();
@@ -100,4 +100,10 @@ window.onload = () => {
     document.onkeydown = handleClick;
     document.onclick = handleClick;
     document.addEventListener('mousemove', setClosest);
+    document.ondragstart = () => {
+        return false;
+    }
+    document.ondrop = () => {
+        return false;
+    }
 }
