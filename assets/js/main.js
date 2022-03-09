@@ -41,9 +41,11 @@ window.onload = () => {
         }
     }
     const setAllInactive = () => {
-        for (var i = 0; i < activeSquares.length + 1; i++) {
-            document.getElementById(`square-${number}`).classList.remove("active");
+        for (let i of activeSquares)
+        {
+            document.getElementById(`square-${i}`).classList.remove('active');
         }
+        activeSquares = [];
     }
     const setClosest = (event) => {
         closest = document.elementFromPoint(event.pageX, event.pageY);
@@ -78,12 +80,12 @@ window.onload = () => {
                 createActiveSquares();
             } else {
                 misses += 1;
-                if(misses >= 10)
+                if(misses >= 11)
                 {
                     setAllInactive();
-                    alert("Game over!");
                     resetHitMiss();
                     createActiveSquares();
+                    alert("Game over!");
                 } else {
                     playComboBreak();
                     closest.classList.add('miss');
